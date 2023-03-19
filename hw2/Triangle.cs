@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hw2
+namespace vp1
 {
-    public class Triangle : IComparable<Triangle>
+    class Triangle
     {
         private double side1;
         private double side2;
@@ -17,13 +17,6 @@ namespace hw2
             this.side1 = side1;
             this.side2 = side2;
             this.side3 = side3;
-        }
-
-        public Triangle(Triangle other)
-        {
-            this.side1 = other.side1;
-            this.side2 = other.side2;
-            this.side3 = other.side3;
         }
 
         public double Side1
@@ -57,12 +50,17 @@ namespace hw2
                 return Math.Sqrt(s * (s - side1) * (s - side2) * (s - side3));
             }
         }
-
         public override string ToString()
         {
             return $"Triangle with sides: {side1}, {side2}, {side3}";
         }
 
+        public void Scale(double multiplier)
+        {
+            side1 *= multiplier;
+            side2 *= multiplier;
+            side3 *= multiplier;
+        }
         public int CompareTo(Triangle other)
         {
             if (other == null)
@@ -87,10 +85,38 @@ namespace hw2
             return !(t1 == t2);
         }
 
-        public static Triangle operator /(Triangle t, double factor)
+        public static Triangle operator /(Triangle t, double multiplier)
         {
-            Triangle result = new Triangle(t.side1, t.side2, t.side3);
+            Triangle result = new Triangle(t.side1/multiplier, t.side2/multiplier, t.side3/multiplier);
+            return result;
+        }
+        public static Triangle operator *(Triangle t, double multiplier)
+        {
+            Triangle result = new Triangle(t.side1 * multiplier, t.side2 * multiplier, t.side3 * multiplier);
             return result;
         }
     }
+
+    class RightTriangle : Triangle
+    {
+        public RightTriangle(double side1) : base(side1, side1, side1)
+        {
+        }
+
+        public double Side()
+        {
+            return Side1;
+        }
+
+        public double RadiusOfInscribedCircle()
+        {
+            return Side1 / (2 * Math.Sqrt(3));
+        }
+
+        public double RadiusOfCircumscribedCircle()
+        {
+            return Side1 / Math.Sqrt(3);
+        }
+    }
+
 }
