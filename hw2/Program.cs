@@ -48,8 +48,13 @@ namespace vp1
             {
                 Console.WriteLine("This triangle is not right.");
             }
- 
-           
+
+            foreach (Triangle t in triangles)
+            {
+                Triangle multipliedTriangle = t * 2;
+                Console.WriteLine($"Multiplied triangles list: {multipliedTriangle}");
+            }
+
 
             Triangle t1 = new Triangle(3, 4, 5);
             Console.WriteLine(t1);
