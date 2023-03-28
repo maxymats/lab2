@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace vp1
 {
-    class Triangle
+    class Triangle : IComparable<Triangle>
     {
         private double side1;
         private double side2;
@@ -53,13 +53,6 @@ namespace vp1
         public override string ToString()
         {
             return $"Triangle with sides: {side1}, {side2}, {side3}";
-        }
-
-        public void Scale(double multiplier)
-        {
-            side1 *= multiplier;
-            side2 *= multiplier;
-            side3 *= multiplier;
         }
         public int CompareTo(Triangle other)
         {
@@ -116,6 +109,11 @@ namespace vp1
         public double RadiusOfCircumscribedCircle()
         {
             return Side1 / Math.Sqrt(3);
+        }
+
+        public override string ToString()
+        {
+            return $"Right Triangle with side: {Side1} ,{Side1} ,{Side1}"; 
         }
     }
 
