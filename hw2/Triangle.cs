@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Globalization;
 namespace vp1
 {
-    class Triangle : IComparable<Triangle>
+    class Triangle : IComparable<Triangle>, IFormattable
     {
         private double side1;
         private double side2;
@@ -52,7 +52,7 @@ namespace vp1
         }
         public override string ToString()
         {
-            return $"Triangle with sides: {side1}, {side2}, {side3}";
+            return ($"Triangle with sides {side1}, {side2}, and {side3}: \nArea: {Area} \nPerimeter: {Perimeter}");
         }
         public int CompareTo(Triangle other)
         {
@@ -60,6 +60,25 @@ namespace vp1
                 return 1;
 
             return this.Area.CompareTo(other.Area);
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (format == null)
+                return this.ToString();
+
+            if (formatProvider == null)
+                formatProvider = CultureInfo.CurrentCulture;
+
+            switch (format.ToUpperInvariant())
+            {
+                case "P":
+                    return $"Perimeter: {this.Perimeter.ToString(formatProvider)}";
+                case "A":
+                    return $"Area: {this.Area.ToString(formatProvider)}";
+                default:
+                    throw new FormatException($"Invalid format string: {format}");
+            }
         }
 
         public static bool operator ==(Triangle t1, Triangle t2)
@@ -113,8 +132,7 @@ namespace vp1
 
         public override string ToString()
         {
-            return $"Right Triangle with side: {Side1} ,{Side1} ,{Side1}"; 
+            return $"Right triangle with side {Side1}: \nArea: {Area} \nPerimeter: {Perimeter} \nInscribed circle radius: {Side1 / (2 * Math.Sqrt(3))} \nCircumscribed circle radius: {Side1 / Math.Sqrt(3)}  ";
         }
     }
-
 }

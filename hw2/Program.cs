@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace vp1
     {
         static void Main(string[] args)
         {
+            // Створюєм 5трикутників
             List<Triangle> triangles = new List<Triangle>();
 
             triangles.Add(new Triangle(3, 4, 5));
@@ -17,14 +19,15 @@ namespace vp1
             triangles.Add(new RightTriangle(5));
             triangles.Add(new RightTriangle(7));
             triangles.Add(new Triangle(8, 10, 12));
-
-            Console.WriteLine("All triangles:");
+            //Виводим їх
+            Console.WriteLine("Collection of all triangles:");
 
             foreach (Triangle t in triangles)
-            {
-                Console.WriteLine($"{t}");
+            { 
+                Console.WriteLine($"\n{t}");
             }
-
+            Console.WriteLine("------------------------------------------------");
+            //знаходим трикутник з максимальною площею
             Triangle maxAreaTriangle = triangles[0];
 
             foreach (Triangle t in triangles)
@@ -34,43 +37,62 @@ namespace vp1
                     maxAreaTriangle = t;
                 }
             }
-            Console.WriteLine($"\nTriangle with maximum area is:");
+            Console.WriteLine($"Triangle with maximum area is:");
             Console.WriteLine(maxAreaTriangle);
             Console.WriteLine(maxAreaTriangle.Area);
-
+            //взнаємо чи є трикутник правильним / неправильним
             if (maxAreaTriangle is RightTriangle)
             {
                 Console.WriteLine("This triangle is right.");
             }
             else
             {
-                Console.WriteLine("This triangle is not right.\n");
+                Console.WriteLine("This triangle is not right.\n------------------------------------------------");
             }
-
+            // використовуємо арифметичні оператори
+            Console.WriteLine("Triangles for using arithmetic operators");
             Triangle t1 = new Triangle(3, 4, 5);
-            Console.WriteLine(t1);
+            Console.WriteLine($"\n{t1}");
 
-            Triangle t2 = new Triangle(4, 6, 8);
-            Console.WriteLine(t2);
+            RightTriangle t2 = new RightTriangle(8);
+            Console.WriteLine($"\n{t2}");
 
             Triangle t3 = t1 / 2;
-            Console.WriteLine(t3);
+            Console.WriteLine($"\n{t3}\n------------------------------------------------");
 
-            Console.WriteLine($"T1 area: {t1.Area}");
-            Console.WriteLine($"T2 area: {t2.Area}");
-            Console.WriteLine($"T3 area: {t3.Area}\n");
+            Console.WriteLine("Using arithmetic operators\n");
 
             Console.WriteLine($"t1 == t2: {t1 == t2}");
             Console.WriteLine($"t1 == t3: {t1 == t3}");
             Console.WriteLine($"t1 != t2: {t1 != t2}");
-            Console.WriteLine($"t1 != t3: {t1 != t3}\n");
+            Console.WriteLine($"t1 != t3: {t1 != t3}\n------------------------------------------------");
 
-
+            // масштабуєм колекцію трикутників на множник
+            Console.WriteLine("Multiplied Triangle list");
             foreach (Triangle t in triangles)
             {
                 Triangle multipliedTriangle = t * 2;
-                Console.WriteLine($"Multiplied triangles list: {multipliedTriangle}");
+                Console.WriteLine($"\n{multipliedTriangle}");
             }
+            Console.WriteLine("------------------------------------------------");
+            //колекція радіусів описаніх кіл правильних трикутників 
+            Console.WriteLine("Collection of radius of circumscribed circles of Right triangles");
+
+            List<RightTriangle> RTriangles = new List<RightTriangle>();
+            RTriangles.Add(new RightTriangle(5));
+            RTriangles.Add(new RightTriangle(7));
+            RTriangles.Add(new RightTriangle(9));
+            RTriangles.Add(new RightTriangle(11));
+            RTriangles.Add(new RightTriangle(13));
+
+            List<double> circumscribedCircleRadii = new List<double>();
+            foreach (RightTriangle triangle in RTriangles)
+            {
+                double radius = triangle.RadiusOfCircumscribedCircle();
+                circumscribedCircleRadii.Add(radius);
+                Console.WriteLine($"\nCircumscribed circle radius:  {radius}");
+            }
+            Console.WriteLine("------------------------------------------------");
 
             // Використання IComparable для порівняння трикутників за площею
             if (t1.CompareTo(t2) > 0)
@@ -87,7 +109,16 @@ namespace vp1
                 Console.WriteLine($"Triangle 3 with area {t3.Area:F2} is smaller than Triangle 2 with area {t2.Area:F2}");
             else
                 Console.WriteLine($"Triangle 3 with area {t3.Area:F2} is equal to Triangle 2 with area {t2.Area:F2}");
+
+            Console.WriteLine("------------------------------------------------");
+
+            Triangle myTriangle = new Triangle(3, 4, 5);
+
+            Console.WriteLine(myTriangle.ToString());
+            Console.WriteLine(myTriangle.ToString("P", CultureInfo.InvariantCulture)); 
+            Console.WriteLine(myTriangle.ToString("A", CultureInfo.InvariantCulture)); 
+            Console.WriteLine(myTriangle.ToString("R", CultureInfo.InvariantCulture));
         }
 
     }
-}
+} 
