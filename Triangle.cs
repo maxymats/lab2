@@ -11,6 +11,7 @@ namespace vp1
         private double side1;
         private double side2;
         private double side3;
+        internal Action<object, EventArgs> AreaRequested;
 
         public Triangle(double side1, double side2, double side3)
         {
@@ -18,7 +19,6 @@ namespace vp1
             this.side2 = side2;
             this.side3 = side3;
         }
-
         public double Side1
         {
             get { return side1; }
@@ -50,6 +50,7 @@ namespace vp1
                 return Math.Sqrt(s * (s - side1) * (s - side2) * (s - side3));
             }
         }
+
         public override string ToString()
         {
             return ($"Triangle with sides {side1}, {side2}, and {side3}: \nArea: {Area} \nPerimeter: {Perimeter}");
@@ -133,6 +134,13 @@ namespace vp1
         public override string ToString()
         {
             return $"Right triangle with side {Side1}: \nArea: {Area} \nPerimeter: {Perimeter} \nInscribed circle radius: {Side1 / (2 * Math.Sqrt(3))} \nCircumscribed circle radius: {Side1 / Math.Sqrt(3)}  ";
+        }
+
+        public new event EventHandler AreaRequested;
+
+        public void RequestArea()
+        {
+            AreaRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -11,6 +11,16 @@ namespace vp1
     {
         static void Main(string[] args)
         {
+            Human human = new Human("Max");
+            Human human1 = new Human("Dima");
+            RightTriangle rightTriangle = new RightTriangle(5);
+            RightTriangle rightTriangle1 = new RightTriangle(10);
+
+            human.AskForArea(rightTriangle);
+            rightTriangle.RequestArea();
+            human1.AskForArea(rightTriangle1);
+            rightTriangle.RequestArea();
+
             // Створюєм 5трикутників
             List<Triangle> triangles = new List<Triangle>();
 
